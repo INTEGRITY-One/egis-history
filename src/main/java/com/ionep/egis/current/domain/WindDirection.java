@@ -6,5 +6,5 @@ public enum WindDirection {
 	EAST,
 	SOUTH,
 	WEST
-
+	
 }
