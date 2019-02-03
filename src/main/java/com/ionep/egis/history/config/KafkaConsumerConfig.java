@@ -29,7 +29,7 @@ public class KafkaConsumerConfig {
 		this.bootstrapAddress = bootstrapAddress;
 	}
 
-	public ConsumerFactory<String, CurrentConditions> greetingConsumerFactory() {
+	public ConsumerFactory<String, CurrentConditions> consumerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "CURRENT_CONDITIONS");
@@ -39,7 +39,7 @@ public class KafkaConsumerConfig {
 	@Bean
 	public ConcurrentKafkaListenerContainerFactory<String, CurrentConditions> currentConditionsKafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, CurrentConditions> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(greetingConsumerFactory());
+		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
 
