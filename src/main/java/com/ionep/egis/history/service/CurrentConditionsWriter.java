@@ -60,6 +60,8 @@ public class CurrentConditionsWriter {
 	@Autowired
 	private CurrentConditionsRepository currentConditionsRepository;
 	
+//	private DateDimension injectedDate;
+//	
 	public boolean writeCurrentConditions(CurrentConditions currentConditions) {
 		boolean success = true;
 		DateDimension date = updateOrCreate(currentConditions.getDate());
@@ -75,7 +77,6 @@ public class CurrentConditionsWriter {
 		return success;
 	}
 	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	protected DateDimension updateOrCreate(DateDimension date) {
 		log.info("date      : " + date.getDate());
 		log.info("dayOfMonth: " + date.getDayOfMonth());
@@ -86,6 +87,7 @@ public class CurrentConditionsWriter {
 		log.info("year      : " + date.getYear());
 		Optional<DateDimension> found = this.dateRepository.findByDateAndHour(date.getDate(), date.getHour());
 		if (found.isPresent()) {
+//			DateDimension copied = this.injectedDate == null ? found.get().from(date): this.injectedDate;
 			DateDimension copied = found.get().from(date);
 			DateDimension updated = this.dateRepository.save(copied);
 			return updated;
